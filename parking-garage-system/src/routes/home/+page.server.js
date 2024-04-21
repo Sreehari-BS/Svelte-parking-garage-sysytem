@@ -1,7 +1,8 @@
-import {redirect} from "@sveltejs/kit"
+import { redirect } from '@sveltejs/kit';
 
-export const load = ({cookies}) => {
-    if(!cookies.get("userId")) {
-        throw redirect(307, "/")
-    }
-}
+export const load = async ({ cookies }) => {
+	const userId = cookies.get('userId');
+	if (!userId) {
+		throw redirect(307, '/');
+	}
+};

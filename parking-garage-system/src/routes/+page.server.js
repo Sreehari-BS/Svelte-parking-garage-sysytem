@@ -18,7 +18,7 @@ export const actions = {
 		try {
 			connectDB();
 
-			const user = await User.findOne({ email });
+			const user = await User.findOne({ email })
 			if (!user) {
 				return { message: 'Wrong Credentials', error: true };
 			}
@@ -28,7 +28,7 @@ export const actions = {
 				return { message: 'Wrong Credentials', error: true };
 			}
 
-			cookies.set("userId", user._id, { httpOnly: true, path: "/" });
+			cookies.set("userId", user._id, { path: "/" });
 			return { message: 'login successful', error: false };
 		} catch (error) {
 			console.log(error);
