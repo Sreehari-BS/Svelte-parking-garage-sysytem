@@ -1,8 +1,11 @@
 <script>
-	import { _submit, load } from './+page';
+	import { _submit, load, _unparkVehicle } from './+page';
 	import SlotBookingForm from '../../components/slotBookingForm/SlotBookingForm.svelte';
 	import SlotRemovingForm from '../../components/slotRemovingForm/SlotRemovingForm.svelte';
+
 	export let data;
+	export let form;
+
 	let showBookingForm = false;
 	let showRemovingForm = false;
 	const userName = data.res?.data?.user?.userName;
@@ -18,12 +21,14 @@
 
 <div class="mt-[73px]">
 	<div class="m-10">
-		<button
+		<form method="POST" action="?/logout">
+		<button type="sunmit"
 			class="bg-red-700 text-white font-bold tracking-widest px-3 py-2 rounded-md float-end hover:bg-red-900"
 			>Logout</button
 		>
+	</form>
 		<br />
-		<div class="flex flex-row h-full">
+		<div class="flex flex-col md:flex-row">
 			<div class="flex flex-col gap-12 justify-center w-7/12">
 				<div class="flex flex-row gap-2 items-center justify-start">
 					<h1 class="text-3xl font-thin tracking-widest">Hello,</h1>
@@ -80,7 +85,7 @@
 					<SlotBookingForm {_submit} {load} on:update={handleUpdate} />
 				{/if}
 				{#if showRemovingForm}
-					<SlotRemovingForm />
+					<SlotRemovingForm {_unparkVehicle} {load} on:update={handleUpdate} />
 				{/if}
 			</div>
 		</div>

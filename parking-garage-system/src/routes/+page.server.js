@@ -6,7 +6,7 @@ dotenv.config()
 
 export const actions = {
 	//for the authentication of new user
-	default: async ({ request, cookies, ur }) => {
+	default: async ({ request, cookies, url }) => {
 		const data = await request.formData();
 		const email = data.get('email');
 		const password = data.get('password');

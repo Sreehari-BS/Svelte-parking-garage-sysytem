@@ -6,3 +6,15 @@ export const load = async ({ cookies }) => {
 		throw redirect(307, '/');
 	}
 };
+
+export const actions = {
+	logout: async ({ cookies }) => {
+		try {
+			cookies.set("userId", "", { path: "/" });
+			return { message: 'Logout successful', error: false };
+		} catch (error) {
+			console.log(error);
+			return { message: 'Something went wrong!', error: true };
+		}
+	}
+};

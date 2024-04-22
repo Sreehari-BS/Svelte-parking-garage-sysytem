@@ -62,7 +62,41 @@ export const POST = async ({ request }) => {
 			return json({ message: 'No more slots available!!', error: true });
 		}
 
-		return json({ message: 'Successfully Booked a slot for your vehicle.', success: true });
+		return json({ message: 'successfully Booked a slot for your vehicle.', success: true });
+	} catch (error) {
+		console.log(error.message);
+		return json({ message: error.message }, { status: 500 });
+	}
+};
+
+export const PATCH = async ({ request }) => {
+	try {
+		connectDB();
+
+		const allCookies = request.headers.get('cookie');
+		const cookies = cookie.parse(allCookies);
+		const userId = cookies['userId'];
+
+		const body = await request.json();
+		const { vehicleNumber } = body;
+
+		const existingUser = await Vehicle.findOne({ userId });
+		if (existingUser === null) {
+			return json({ message: 'There is no vehicle parked by this user!!', error: true });
+		}
+
+		const existingVehicle = existingUser?.vehicleNumber;
+		if (vehicleNumber !== existingVehicle) {
+			return json({ message: 'Enter the correct vehicle number!!', error: true });
+		}
+
+		const garage = await Garage.find();
+		garage[0].availableSlots++;
+
+		await Vehicle.deleteOne({ userId });
+		await garage[0].save();
+
+		return json({ message: "successfully removed the Slot.", success: true });
 	} catch (error) {
 		console.log(error.message);
 		return json({ message: error.message }, { status: 500 });

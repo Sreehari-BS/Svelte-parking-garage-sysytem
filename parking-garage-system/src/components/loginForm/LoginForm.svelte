@@ -5,7 +5,7 @@
 	export let form;
 </script>
 
-<div class="flex flex-col items-center justify-center flex-1 p-24">
+<div class="flex flex-col items-center justify-center flex-1 p-24 min-h-screen">
 	<form method="POST" class="flex flex-col gap-5 w-[400px] max-w-[100%] mx-auto">
 		<h2 class="text-5xl font-bold text-center text-red-800 tracking-widest">Login</h2>
 		{#if form?.error}

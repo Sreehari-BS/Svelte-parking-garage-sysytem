@@ -27,3 +27,18 @@ export const _submit = async (typeOfVehicle, vehicleNumber) => {
 		return { message: error.message }, { status: 500 };
 	}
 }
+
+export const _unparkVehicle = async (vehicleNumber) => {
+	try {
+		const res = await axios.patch("http://localhost:5173/api/home",{
+			vehicleNumber,
+		},{
+			headers: { 'Content-Type': 'application/json' },
+			withCredentials: true
+		})
+		return {res}
+	} catch (error) {
+		console.log(error.stack)
+		return { message: error.message }, { status: 500 };
+	}
+}
