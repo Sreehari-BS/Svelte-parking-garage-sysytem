@@ -1,23 +1,15 @@
 import mongoose from 'mongoose';
 
-const garageSchema = new mongoose.Schema(
-	{
-		availableSlots: {
-			type: Number,
-			default: 10
-		},
-		userId: {
-			type: mongoose.Schema.ObjectId,
-			ref: 'User',
-			required: true
-		},
-		vehicleNumber: {
-			type: String,
-			required: true
-		}
+const garageSchema = new mongoose.Schema({
+	totalSlots: {
+		type: Number,
+		required: true
 	},
-	{ timestamps: true }
-);
+	availableSlots: {
+		type: Number,
+		required: true
+	}
+});
 
-const Parking = mongoose.models?.Garage || mongoose.model('Garage', garageSchema);
-export default Parking;
+const Garage = mongoose.models?.Garage || mongoose.model('Garage', garageSchema);
+export default Garage;
